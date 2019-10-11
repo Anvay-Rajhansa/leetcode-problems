@@ -24,7 +24,7 @@ import java.util.Map;
 public class FindCommonCharacters {
 
     public static void main(String[] args) {
-        String[] A = new String[]{"bella","label","roller"};
+        String[] A = new String[]{"cool","lock","cook"};
 
         Map<String, Integer> charCountMap = new HashMap<>();
         List<String> output = new ArrayList<>();
@@ -38,21 +38,8 @@ public class FindCommonCharacters {
                 String word = A[j];
 
                 if(word.contains(String.valueOf(firstWordArray[i]))) {
-                    if(charCountMap.containsKey(String.valueOf(firstWordArray[i]))) {
-                        int expectedCount = charCountMap.get(String.valueOf(firstWordArray[i])) + 1;
-                        int actualCount = 0;
-                        char[] wordArray = word.toCharArray();
-                        for (int k = 0; k < wordArray.length; k++) {
-                            if(wordArray[k] == firstWordArray[i]) {
-                                actualCount ++;
-                            }
-                        }
-
-                        if(actualCount < expectedCount) {
-                            flag = false;
-                            break;
-                        }
-                    }
+                    int index = word.indexOf(String.valueOf(firstWordArray[i]));
+                    A[j] = word.substring(0, index) + word.substring(index + 1);
                 } else {
                     flag = false;
                     break;
