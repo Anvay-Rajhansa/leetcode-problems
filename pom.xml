@@ -7,6 +7,17 @@
     <groupId>org.leetcode</groupId>
     <artifactId>problems</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json -->
+        <dependency>
+            <groupId>com.eclipsesource.minimal-json</groupId>
+            <artifactId>minimal-json</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
