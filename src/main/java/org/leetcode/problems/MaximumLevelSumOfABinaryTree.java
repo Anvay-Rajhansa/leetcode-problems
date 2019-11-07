@@ -28,10 +28,8 @@ The number of nodes in the given tree is between 1 and 10^4.
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 public class MaximumLevelSumOfABinaryTree {
@@ -43,31 +41,35 @@ public class MaximumLevelSumOfABinaryTree {
 
     public static int maxLevelSum(TreeNode root) {
         List<TreeNode> treeNodes = new ArrayList<>();
-        Map<Integer, Integer> sum = new HashMap<>();
-
         treeNodes.add(root);
+
+        int max = Integer.MIN_VALUE;
+        int level = 1;
 
         int i = 1;
         while (!treeNodes.isEmpty()) {
-            int sum1 = 0;
+            int sum = 0;
 
             List<TreeNode> newTreeNodes = new ArrayList<>();
 
             for (TreeNode node : treeNodes) {
                 if(node != null) {
-                    sum1 += node.val;
+                    sum += node.val;
                     newTreeNodes.add(node.left);
                     newTreeNodes.add(node.right);
                 }
             }
 
-            sum.put(i, sum1);
+            if(sum > max) {
+                max = sum;
+                level = i;
+            }
+
             i++;
             treeNodes = newTreeNodes;
         }
 
-        return sum.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1)
-                .get().getKey();
+        return level;
     }
 
 
