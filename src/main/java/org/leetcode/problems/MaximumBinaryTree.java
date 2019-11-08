@@ -27,8 +27,6 @@ The size of the given array will be in the range [1,1000].
 */
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class MaximumBinaryTree {
@@ -36,7 +34,7 @@ public class MaximumBinaryTree {
     public static void main(String[] args) {
         int[] nums = new int[]{3,2,1,6,0,5};
 
-        System.out.println(treeNodeToString(calculateMaxTree(nums, 0, nums.length)));
+        System.out.println(TreeNode.treeNodeToString(calculateMaxTree(nums, 0, nums.length)));
     }
 
     public static TreeNode calculateMaxTree(int[] value, int start, int end) {
@@ -63,28 +61,5 @@ public class MaximumBinaryTree {
         treeNode.left = calculateMaxTree(leftArray, 0, leftArray.length);
 
         return treeNode;
-    }
-
-    public static String treeNodeToString(TreeNode root) {
-        if (root == null) {
-            return "[]";
-        }
-
-        String output = "";
-        Queue<TreeNode> nodeQueue = new LinkedList<>();
-        nodeQueue.add(root);
-        while(!nodeQueue.isEmpty()) {
-            TreeNode node = nodeQueue.remove();
-
-            if (node == null) {
-                output += "null, ";
-                continue;
-            }
-
-            output += String.valueOf(node.val) + ", ";
-            nodeQueue.add(node.left);
-            nodeQueue.add(node.right);
-        }
-        return "[" + output.substring(0, output.length() - 2) + "]";
     }
 }
