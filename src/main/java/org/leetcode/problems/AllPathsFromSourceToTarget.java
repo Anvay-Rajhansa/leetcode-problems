@@ -29,7 +29,6 @@ You can print different paths in any order, but you should keep the order of nod
 import com.eclipsesource.json.JsonArray;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
