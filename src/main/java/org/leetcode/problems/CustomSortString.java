@@ -36,14 +36,38 @@ public class CustomSortString {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (char ch: S.toCharArray()) {
+        /*for (char ch: S.toCharArray()) {
             while (T.indexOf(ch) != -1) {
                 stringBuilder.append(ch);
                 T =  T.substring(0, T.indexOf(ch)) + T.substring(T.indexOf(ch) + 1);
             }
+        }*/
+
+        //more optimized
+
+        int[] intt = new int[26];
+
+        for (char ch: T.toCharArray()) {
+            intt[ch - 'a']++;
         }
 
+        for (char ch: S.toCharArray()) {
 
-        return stringBuilder.append(T).toString();
+            for (int i = 0; i < intt[ch - 'a']; i++) {
+                stringBuilder.append(ch);
+            }
+
+            intt[ch - 'a'] = 0;
+        }
+
+        for (int i = 0; i < intt.length; i++) {
+            if(intt[i] > 0) {
+                for (int j = 0; j < intt[i]; j++) {
+                    stringBuilder.append((char)(i + 'a'));
+                }
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }
