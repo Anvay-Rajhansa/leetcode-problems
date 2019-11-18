@@ -27,7 +27,7 @@ in c++ or in any other language.
 public class CountingBits {
 
     public static void main(String[] args) {
-        for(int i: countBits(2)) {
+        for(int i: countBits(5)) {
             System.out.println(i);
         }
     }
@@ -35,12 +35,20 @@ public class CountingBits {
     public static int[] countBits(int num) {
         int[] output = new int[num + 1];
 
-        for (int i = 0; i <= num; i++) {
+        /*for (int i = 0; i <= num; i++) {
             int count = 0;
             for(char ch: Integer.toBinaryString(i).toCharArray()) {
                 count += Integer.parseInt(String.valueOf(ch));
             }
             output[i] = count;
+        }*/
+
+        for(int i = 0; i <= num; i++){
+            int j = i;
+            while(j != 0){
+                output[i]++;
+                j &= (j-1);
+            }
         }
 
         return output;
