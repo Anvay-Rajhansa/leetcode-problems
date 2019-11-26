@@ -15,7 +15,6 @@ sentence = "the cattle was rattled by the battery"
 Output: "the cat was rat by the bat"
 */
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,30 +25,79 @@ public class ReplaceWords {
     }
 
     private static String replaceWords(List<String> dict, String sentence) {
+
         StringBuilder stringBuilder = new StringBuilder();
 
-        String[] words = sentence.split(" ");
 
-        for (int i=0; i < words.length; i++) {
-            boolean found = false;
+        TriNode root = new TriNode();
 
-            for (String root: dict) {
-                if (words[i].startsWith(root)) {
-                    found = true;
-                    stringBuilder.append(root);
-                    break;
-                }
-            }
-
-            if(!found) {
-                stringBuilder.append(words[i]);
-            }
-
-            if(i != words.length - 1) {
-                stringBuilder.append(" ");
-            }
+        for (String word: dict) {
+            addWordInTri(root, word);
         }
 
-        return stringBuilder.toString();
+        for (String word: sentence.split(" ")) {
+            stringBuilder.append(getWordFromTri(root, word)).append(" ");
+        }
+
+        String result = stringBuilder.toString();
+        return result.substring(0, result.length() - 1);
+    }
+
+
+    private static void addWordInTri(TriNode root, String word) {
+
+        TriNode temp = root;
+
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+
+            if(temp.getChildNode()[c-'a'] == null) {
+                temp.getChildNode()[c-'a'] = new TriNode();
+            }
+
+            temp = temp.getChildNode()[c-'a'];
+        }
+
+        temp.setWorld(word);
+    }
+
+    private static String getWordFromTri(TriNode root, String word) {
+
+        TriNode temp = root;
+
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+
+            if(temp.getChildNode()[c - 'a'] == null) {
+                return word;
+            }
+
+            temp = temp.getChildNode()[c-'a'];
+
+            if(temp.getWorld() != null) return temp.getWorld();
+        }
+
+        return word;
+    }
+}
+
+class TriNode {
+    private final TriNode[] childNode;
+    private String world;
+
+    public TriNode() {
+        this.childNode = new TriNode[26];
+    }
+
+    public TriNode[] getChildNode() {
+        return childNode;
+    }
+
+    public void setWorld(String world) {
+        this.world = world;
+    }
+
+    public String getWorld() {
+        return world;
     }
 }
