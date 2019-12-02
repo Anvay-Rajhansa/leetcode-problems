@@ -19,7 +19,6 @@ Output:
 */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FindAllDuplicatesInAnArray {
@@ -31,14 +30,11 @@ public class FindAllDuplicatesInAnArray {
     public static List<Integer> findDuplicates(int[] nums) {
         List<Integer> result = new ArrayList<>();
 
-        Arrays.sort(nums);
-
-        for(int i=0; i < nums.length; i++){
-
-            if((i + 1) < nums.length) {
-                if(nums[i] == nums[i+1]) {
-                    result.add(nums[i]);
-                }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[Math.abs(nums[i]) - 1] >= 0) {
+                nums[Math.abs(nums[i]) - 1] *= -1;
+            } else {
+                result.add(Math.abs(nums[i]));
             }
         }
 
