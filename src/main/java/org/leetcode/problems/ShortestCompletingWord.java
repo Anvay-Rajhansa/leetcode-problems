@@ -37,9 +37,6 @@ Every words[i] will consist of lowercase letters, and have length in range [1, 1
 */
 
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-
 public class ShortestCompletingWord {
 
     public static void main(String[] args) {
@@ -47,29 +44,29 @@ public class ShortestCompletingWord {
     }
 
     public static String shortestCompletingWord(String licensePlate, String[] words) {
-        PriorityQueue<String> outputQueue = new PriorityQueue<>(words.length,
-                Comparator.comparing(String::length));
+        String output = "";
 
         licensePlate = licensePlate.replaceAll("[^A-Za-z]","").trim().toLowerCase();
 
         for(String word: words) {
             int count = 0;
             String originalWord = word;
-            for (char ch: licensePlate.toCharArray()) {
-
-                if(word.contains(String.valueOf(ch))) {
-                    String first = word.substring(0, word.indexOf(ch));
-                    String second = word.substring(word.indexOf(ch) + 1);
-                    word =  first + second;
-                    count ++;
+            if(output.equals("") || word.length()<output.length()) {
+                for (char ch : licensePlate.toCharArray()) {
+                    if (word.contains(String.valueOf(ch))) {
+                        String first = word.substring(0, word.indexOf(ch));
+                        String second = word.substring(word.indexOf(ch) + 1);
+                        word = first + second;
+                        count++;
+                    }
                 }
             }
 
             if(count == licensePlate.length()) {
-                outputQueue.add(originalWord);
+                output = originalWord;
             }
         }
 
-        return outputQueue.peek();
+        return output;
     }
 }
